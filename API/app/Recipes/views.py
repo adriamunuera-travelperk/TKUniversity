@@ -34,8 +34,8 @@ class RecipeListView(views.APIView):
             data = serializer.create(validated_data=request.data)
             return Response(data, status=status.HTTP_201_CREATED)
         return Response(
-            serializer.error_messages,
-            status=status.HTTP_400_BAD_REQUEST
+                serializer.error_messages,
+                status=status.HTTP_400_BAD_REQUEST
             )
 
 

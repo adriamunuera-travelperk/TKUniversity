@@ -52,9 +52,6 @@ class APITests(TestCase):
 
         recipe = Recipe.objects.get(name=payload['name'])
         serializedRecipe = RecipeSerializer(recipe)
-        print('---VS---')
-        print(response.data)
-        print(serializedRecipe.data)
         self.assertEqual(response.data, serializedRecipe.data)
 
     def test_create_recipe_with_ingredients(self):
@@ -73,14 +70,9 @@ class APITests(TestCase):
             description=payload['description']
         ).exists()
         self.assertTrue(exists)
-
         self.assertEqual(response.status_code, status.HTTP_201_CREATED)
-
         recipe = Recipe.objects.get(name=payload['name'])
         serializedRecipe = RecipeSerializer(recipe)
-        print('----VS----')
-        print(response.data)
-        print(serializedRecipe.data)
         self.assertEqual(response.data, serializedRecipe.data)
 
     def test_get_all_recipes(self):
@@ -88,8 +80,6 @@ class APITests(TestCase):
         createSampleRecipe2()
         response = self.client.get(RECIPES_URL)
         serializer = RecipeSerializer(Recipe.objects.all(), many=True)
-        print('HEY')
-        print(serializer.data)
         self.assertTrue(True)
 
     def test_get_recipe_by_id(self):

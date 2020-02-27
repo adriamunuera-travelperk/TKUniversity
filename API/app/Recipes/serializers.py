@@ -16,7 +16,9 @@ class RecipeSerializer(serializers.ModelSerializer):
     class Meta:
         model = Recipe
         fields = ('name', 'description', 'ingredients')
+        depth = 1
 
+        
     def create(self, validated_data):
         """ Overriding the default create method """
 
@@ -35,4 +37,4 @@ class RecipeSerializer(serializers.ModelSerializer):
                 recipe=recipe
             )
 
-        return recipe
+        return RecipeSerializer(recipe).data
