@@ -6,7 +6,7 @@ from rest_framework.response import Response
 from rest_framework import viewsets, mixins, status
 
 from rest_framework import generics, views
-
+import json
 
 class RecipeListView(views.APIView):
     """ API to get all recipes, or filter them by name"""
@@ -25,14 +25,14 @@ class RecipeListView(views.APIView):
         """ Return a list of all recipes. If needed, filtered by name"""
         queryset = self.get_queryset()
         serializer = RecipeSerializer(queryset, many=True)
-        return Response(serializer.data)
+        return Response(json.dumps(serializer.data))
 
 
     def post(self, request):
         serializer = RecipeSerializer(data=request.data)
         if serializer.is_valid(raise_exception=ValueError):
             data = serializer.create(validated_data=request.data)
-            return Response(data, status=status.HTTP_201_CREATED)
+            return Response(json.dumps(data), status=status.HTTP_201_CREATED)
         return Response(
                 serializer.error_messages,
                 status=status.HTTP_400_BAD_REQUEST

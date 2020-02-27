@@ -9,6 +9,7 @@ class IngredientSerializer(serializers.ModelSerializer):
         model = Ingredient
         fields  = ('name',)
 
+
 class RecipeSerializer(serializers.ModelSerializer):
     """ Serializer for recipe objects """
     ingredients = IngredientSerializer(many=True, required=False)
@@ -18,7 +19,7 @@ class RecipeSerializer(serializers.ModelSerializer):
         fields = ('name', 'description', 'ingredients')
         depth = 1
 
-        
+
     def create(self, validated_data):
         """ Overriding the default create method """
 
