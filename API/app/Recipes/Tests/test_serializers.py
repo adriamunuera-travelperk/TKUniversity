@@ -2,6 +2,7 @@ from django.test import TestCase
 from Recipes.models import Recipe, Ingredient
 from Recipes.serializers import RecipeSerializer, IngredientSerializer
 
+
 class SerializersTests(TestCase):
     def test_serializer_recipe(self):
         """ Test serializer for recipes """

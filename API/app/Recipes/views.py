@@ -5,10 +5,10 @@ from rest_framework.decorators import action
 from rest_framework.response import Response
 from rest_framework import viewsets, mixins, status
 
-from rest_framework import generics
+from rest_framework import generics, views
 
 
-class RecipeListView(generics.ListCreateAPIView):
+class RecipeListView(views.APIView):
     """ API to get all recipes, or filter them by name"""
     #queryset = Recipe.objects.all()
     serializer_class = RecipeSerializer
@@ -21,11 +21,23 @@ class RecipeListView(generics.ListCreateAPIView):
             queryset = queryset.filter(name__startswith=name)
         return queryset
 
-    def list(self, request):
+    def get(self, request):
         """ Return a list of all recipes. If needed, filtered by name"""
         queryset = self.get_queryset()
         serializer = RecipeSerializer(queryset, many=True)
         return Response(serializer.data)
+
+
+    def post(self, request):
+        serializer = RecipeSerializer(data=request.data)
+        if serializer.is_valid(raise_exception=ValueError):
+            data = serializer.create(validated_data=request.data)
+            return Response(data, status=status.HTTP_201_CREATED)
+        return Response(
+            serializer.error_messages,
+            status=status.HTTP_400_BAD_REQUEST
+            )
+
 
 
 class RecipeDetailAPIView(generics.RetrieveUpdateDestroyAPIView):

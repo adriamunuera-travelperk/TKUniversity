@@ -62,6 +62,7 @@ class RecipeTests(TestCase):
         self.assertEqual(0, Ingredient.objects.all().count())
 
     def test_modify_recipe(self):
+        "Test modifying a recipe"
         recipeName = 'Llenties'
         recipeDescription = 'Demanar un tupper'
         recipe = Recipe.objects.create(
