@@ -1,13 +1,30 @@
-import React, {useState} from 'react'
-import {pizzaClassica, pizzaTarradellas, curryBoar, lentejas, allRecipes} from './testData'
+import React, {useState, useEffect} from 'react'
 import {Button, Card, Container, Row, Table} from 'react-bootstrap'
 import {Switch, Route, NavLink, Redirect} from 'react-router-dom'
 import './App.css';
 import {ListOfIngredientsToString} from './utils'
+import axios from 'axios'
+
+
+
+
 
 const Homepage = () => {
-  const allRecipesFromAPI = allRecipes //TODO: GET
+  const [allRecipesFromAPI, setRecipes] = useState([]) //TODO: GET
 
+  useEffect(() => {
+    async function getAllIngredients() {
+      const URL = 'http://localhost:8000/api/recipes/'
+      await axios.get(URL).then(response => setRecipes(JSON.parse(response.data)))
+    }
+    getAllIngredients()
+  },[])
+
+  const deleteRecipeAt = (index) => {
+    const URL = 'http://localhost:8000/api/recipes/'+index.toString()
+    axios.delete(URL).then(response => console.log(response))
+    setRecipes([...allRecipesFromAPI.slice(0,index),...allRecipesFromAPI.slice(index+1)])
+  }
   return (<div>
             <Container>
               <Row>
@@ -37,7 +54,7 @@ const Homepage = () => {
                                         </Button>
                                       </td>
                                       <td>
-                                        <Button onClick={() => console.log('TODO!')} variant="danger">Eliminar</Button>
+                                        <Button onClick={() => deleteRecipeAt(index)} variant="danger">Eliminar</Button>
                                       </td>
                                     </tr>)
                           })
