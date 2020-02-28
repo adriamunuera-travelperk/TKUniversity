@@ -8,7 +8,6 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 import Homepage from './Homepage'
 import Detail from './Detail'
 import AddRecipe from './AddRecipe'
-import Footer from './Footer'
 
 
 function App() {
@@ -34,7 +33,6 @@ function App() {
         <Route exact path={'/recipes/'+':id'} render={(props) => <Detail id={props.match.params.id}/>}/>
         <Redirect to='/recipes/'/>
       </Switch>
-      <Footer/>
     </div>
   );
 }

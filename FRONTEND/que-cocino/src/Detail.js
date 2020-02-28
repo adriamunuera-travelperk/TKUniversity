@@ -37,9 +37,9 @@ const Detail = (props) => {
                     </tbody>
                   </Table>
                   <div>
-                    <Button variant="secondary" onClick={() => console.log('TODO!')} className='detailButton'>Go back</Button>
-                    <Button variant="warning" onClick={() => console.log('TODO!')} className='detailButton'>Edit</Button>
-                    <Button variant="danger" onClick={() => console.log('TODO!')} className='detailButton'>Delete</Button>
+                    <Button variant="secondary" onClick={() => console.log('TODO!')} className='detailButton'>Atrás</Button>
+                    <Button variant="warning" onClick={() => console.log('TODO!')} className='detailButton'>Editar</Button>
+                    <Button variant="danger" onClick={() => console.log('TODO!')} className='detailButton'>Eliminar</Button>
                   </div>
                 </Card.Body>
               </Card>

@@ -2,7 +2,7 @@ import React, {useState} from 'react'
 import {pizzaClassica, pizzaTarradellas, curryBoar, lentejas, allRecipes} from './testData'
 import {Button, Card, Container, Row, Table} from 'react-bootstrap'
 import {Switch, Route, NavLink, Redirect} from 'react-router-dom'
-
+import './App.css';
 
 const ListOfIngredientsToString = (list) => {
   let result = ''
@@ -49,9 +49,9 @@ const Homepage = () => {
                         }
                       </tbody>
                     </Table>
-                    <Button variant="outline-primary" size="lg">
-                      <NavLink exact to={"/recipes/add"}>
-                        Add
+                    <Button variant="primary" size="lg">
+                      <NavLink exact to={"/recipes/add"} style={{color:'white'}}>
+                        Añadir receta
                       </NavLink>
                     </Button>
                   </Card.Body>

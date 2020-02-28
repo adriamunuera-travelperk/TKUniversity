@@ -54,3 +54,40 @@
 .detailButton {
   margin: 1vh;
 }
+
+.addButton:acctive{
+  color: white;
+}
+
+.addIngredientField{
+  border-radius: 3px;
+  height: 4.3vh;
+  margin-top: 1vh;
+  margin-bottom: 1vh;
+  border-width: 0px;
+  box-shadow:0 0 2px #666 inset;
+  padding:1vh;
+  width:80%
+}
+
+.addNameField {
+  border-radius: 3px;
+  height: 4.3vh;
+  margin-top: 1vh;
+  margin-bottom: 1vh;
+  border-width: 0px;
+  box-shadow:0 0 2px #666 inset;
+  padding:1vh;
+  width:100%
+}
+
+.addDescriptionTextArea {
+  box-sizing: border-box;
+  border-radius: 3px;
+  margin-top: 1vh;
+  margin-bottom: 1vh;
+  border-width: 0px;
+  box-shadow:0 0 2px #666 inset;
+  padding:1vh;
+  width:100%;
+}
