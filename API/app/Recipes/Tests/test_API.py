@@ -112,7 +112,7 @@ class APITests(TestCase):
             ]
         }
         response = self.client.patch(RECIPES_URL+'1/', payload)
-        #TODO: UPDATE INGREDIENTS TOO!!!
+        self.assertEqual(response.data.replace('\"','\''), str(payload))
         self.assertEqual(response.status_code, status.HTTP_200_OK)
 
 

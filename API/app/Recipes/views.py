@@ -7,6 +7,8 @@ from rest_framework import viewsets, mixins, status
 
 from rest_framework import generics, views
 import json
+import ast
+
 
 class RecipeListView(views.APIView):
     """ API to get all recipes, or filter them by name"""
@@ -39,8 +41,34 @@ class RecipeListView(views.APIView):
             )
 
 
-
 class RecipeDetailAPIView(generics.RetrieveUpdateDestroyAPIView):
     """ API view to RUD recipes by id """
     serializer_class = RecipeSerializer
     queryset = Recipe.objects.all()
+
+    def partial_update(self,request,*args,**kwargs):
+        if kwargs['pk']:
+            id = int(kwargs['pk'])
+            recipe = Recipe.objects.get(id=id)
+            if request.data.get('description'):
+                description = request.data.get('description')
+                recipe.description = description
+
+            if request.data.get('name'):
+                name = request.data.get('name')
+                recipe.name = name
+
+            if request.data.getlist('ingredients'):
+                past_ingredients = recipe.ingredients
+                if not past_ingredients.name == None:
+                    past_ingredients.delete()
+                ingredients_data = request.data.getlist('ingredients')
+                for ingredient in ingredients_data:
+                    ing_map = ast.literal_eval(ingredient)
+                    ingredient = Ingredient.objects.create(
+                        name=ing_map['name'],
+                        recipe=recipe
+                    )
+            return Response(json.dumps(RecipeSerializer(recipe).data), status=status.HTTP_200_OK)
+        else:
+            return Response(json.dumps('{}'), status=status.HTTP_400_BAD_REQUEST)
