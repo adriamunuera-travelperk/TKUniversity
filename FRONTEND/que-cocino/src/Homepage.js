@@ -3,12 +3,7 @@ import {pizzaClassica, pizzaTarradellas, curryBoar, lentejas, allRecipes} from '
 import {Button, Card, Container, Row, Table} from 'react-bootstrap'
 import {Switch, Route, NavLink, Redirect} from 'react-router-dom'
 import './App.css';
-
-const ListOfIngredientsToString = (list) => {
-  let result = ''
-  for (let i=0; i < list.length; i++) result = result + list[i].name + ' '
-  return result
-}
+import {ListOfIngredientsToString} from './utils'
 
 const Homepage = () => {
   const allRecipesFromAPI = allRecipes //TODO: GET

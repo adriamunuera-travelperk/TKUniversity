@@ -33,7 +33,7 @@ const AddRecipe = (props) => {
                             <input
                               type='text'
                               name='Nombre de la receta'
-                              onChange={(e) => props.modifyAtIndex(e.target.value)}
+                              onChange={(e) => nameInputFieldHook.setText(e.target.value)}
                               value={nameInputFieldHook.text}
                               className={'addNameField'}
                               placeholder='Nombre de la receta'
@@ -47,7 +47,7 @@ const AddRecipe = (props) => {
                             <div>
                             <textarea
                               value={descriptionInputFieldHook.text}
-                              onChange={() => null}
+                              onChange={(e) => descriptionInputFieldHook.setText(e.target.value)}
                               placeholder="Descripción de la receta"
                               rows="4"
                               cols='40'
@@ -60,7 +60,7 @@ const AddRecipe = (props) => {
                       </ListGroup.Item>
 
                       <ListGroup.Item>
-                        <AddIngredients/>
+                        <AddIngredients ingredients={ingredients}/>
                       </ListGroup.Item>
 
                       <ListGroup.Item>

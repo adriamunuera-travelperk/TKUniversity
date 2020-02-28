@@ -37,7 +37,7 @@ const AddIngredientField = (props) => {
                   type='text'
                   name='Ingredients'
                   onChange={(e) => props.modifyAtIndex(e.target.value)}
-                  value={props.text}
+                  value={props.text.name}
                   className={'addIngredientField'}
                   placeholder='Ingrediente'
                 />
