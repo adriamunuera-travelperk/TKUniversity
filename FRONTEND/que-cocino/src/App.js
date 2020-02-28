@@ -1,33 +1,35 @@
 import React from 'react';
 import logo from './logo.svg';
 import {Switch, Route, NavLink, Redirect} from 'react-router-dom'
-import {Nav, Jumbotron, Button} from 'react-bootstrap'
+import {Nav, Jumbotron, Button, Navbar, NavDropdown, Form, FormControl} from 'react-bootstrap'
 import './App.css';
 import 'bootstrap/dist/css/bootstrap.min.css';
 
 import Homepage from './Homepage'
 import Detail from './Detail'
+import AddRecipe from './AddRecipe'
+
 
 function App() {
   return (
     <div className="App">
-      <div>
-        <Nav variant="pills" defaultActiveKey="/recipes/">
-          <Nav.Item>
-            <Nav.Link>
-              <NavLink exact to="/recipes/">HOME</NavLink>
-            </Nav.Link>
-            <Nav.Link>
-              <NavLink exact to="/recipes/?name=Pi">SEARCH</NavLink>
-            </Nav.Link>
-            <Nav.Link>
-              <NavLink exact activeClassName={'activePage'} to="/recipes/1">DETAIL</NavLink>
-            </Nav.Link>
-          </Nav.Item>
-        </Nav>
-      </div>
+        <Navbar bg="light" expand="lg">
+          <Navbar.Brand>
+            <NavLink exact to="/recipes/">Qué cocino</NavLink>
+          </Navbar.Brand>
+          <Navbar.Toggle aria-controls="basic-navbar-nav" />
+          <Navbar.Collapse id="basic-navbar-nav">
+            <Nav className="mr-auto">
+            </Nav>
+            <Form inline>
+              <FormControl type="text" placeholder="Buscar recetas" className="mr-sm-2" />
+              <Button variant="outline-success">Buscar</Button>
+            </Form>
+          </Navbar.Collapse>
+        </Navbar>
       <Switch>
         <Route exact path='/recipes/' render={() => <Homepage/>}/>
+        <Route exact path='/recipes/add/' render={() => <AddRecipe/>}/>
         <Route exact path={'/recipes/'+':id'} render={(props) => <Detail id={props.match.params.id}/>}/>
         <Redirect to='/recipes/'/>
       </Switch>
