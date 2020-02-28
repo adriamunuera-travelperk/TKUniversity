@@ -6,9 +6,6 @@ import {ListOfIngredientsToString} from './utils'
 import axios from 'axios'
 
 
-
-
-
 const Homepage = () => {
   const [allRecipesFromAPI, setRecipes] = useState([]) //TODO: GET
 
@@ -22,8 +19,9 @@ const Homepage = () => {
 
   const deleteRecipeAt = (index) => {
     const URL = 'http://localhost:8000/api/recipes/'+index.toString()
-    axios.delete(URL).then(response => console.log(response))
-    setRecipes([...allRecipesFromAPI.slice(0,index),...allRecipesFromAPI.slice(index+1)])
+    axios.delete(URL).then(response => console.log(response)).then(() => {
+      setRecipes([...allRecipesFromAPI.slice(0,index),...allRecipesFromAPI.slice(index+1)])
+    })
   }
   return (<div>
             <Container>

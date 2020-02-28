@@ -1,6 +1,8 @@
 import React, {useState} from 'react'
 import {Button, Card, Container, Row, Table, ListGroup, InputGroup, FormControl} from 'react-bootstrap'
 import AddIngredients from './AddIngredients'
+import axios from 'axios'
+
 
 const useInputFieldHook = (initialText) => {
   const [text, setText]= useState(initialText)
@@ -21,6 +23,12 @@ const AddRecipe = (props) => {
   const descriptionInputFieldHook = useInputFieldHook(description)
 
   const onSubmitFunction = () => null
+  const addRecipe = () => {
+    const URL = 'http://localhost:8000/api/recipes/'
+    const payload = {'name': nameInputFieldHook.text, 'description': descriptionInputFieldHook.text, 'ingredients':[]}
+    console.log(payload)
+    axios.post(URL, payload).then(response => console.log(response))
+  }
 
   return (<Container>
             <Row>
@@ -54,8 +62,6 @@ const AddRecipe = (props) => {
                               className={'addDescriptionTextArea'}/>
                             </div>
                           </form>
-
-
                         </InputGroup>
                       </ListGroup.Item>
 
@@ -65,7 +71,7 @@ const AddRecipe = (props) => {
 
                       <ListGroup.Item>
                         <Button variant="secondary" onClick={() => console.log('TODO!')} className='detailButton'>Atrás</Button>
-                        <Button variant="warning" onClick={() => console.log('TODO!')} className='detailButton'>¡Añade la receta!</Button>
+                        <Button variant="warning" onClick={() => addRecipe()} className='detailButton'>¡Añade la receta!</Button>
                       </ListGroup.Item>
                     </ListGroup>
                 </Card.Body>
