@@ -1,13 +1,14 @@
 import React from 'react';
 import logo from './logo.svg';
 import {Switch, Route, NavLink, Redirect} from 'react-router-dom'
-import {Nav, Jumbotron, Button, Navbar, NavDropdown, Form, FormControl} from 'react-bootstrap'
+import {Nav, Button, Navbar, Form, FormControl} from 'react-bootstrap'
 import './App.css';
 import 'bootstrap/dist/css/bootstrap.min.css';
 
 import Homepage from './Homepage'
 import Detail from './Detail'
 import AddRecipe from './AddRecipe'
+import Footer from './Footer'
 
 
 function App() {
@@ -33,6 +34,7 @@ function App() {
         <Route exact path={'/recipes/'+':id'} render={(props) => <Detail id={props.match.params.id}/>}/>
         <Redirect to='/recipes/'/>
       </Switch>
+      <Footer/>
     </div>
   );
 }

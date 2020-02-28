@@ -19,8 +19,7 @@ const Detail = (props) => {
 
   return (<Container>
             <Row>
-              <Card style={{ width: '30rem', margin: '0 auto', float: 'none', marginTop:'5vh'}}>
-                <Card.Header>{name}</Card.Header>
+              <Card style={{ width: '30rem', margin: '0 auto', float: 'none', marginTop:'1vh', marginBottom:'5vh'}}>
                 <Card.Img variant="top" src={imgSrc} className='RecipeImage' />
                 <Card.Body>
                   <Card.Title > {name} </Card.Title>
@@ -42,7 +41,6 @@ const Detail = (props) => {
                     <Button variant="warning" onClick={() => console.log('TODO!')} className='detailButton'>Edit</Button>
                     <Button variant="danger" onClick={() => console.log('TODO!')} className='detailButton'>Delete</Button>
                   </div>
-
                 </Card.Body>
               </Card>
             </Row>

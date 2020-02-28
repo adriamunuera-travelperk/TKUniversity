@@ -16,7 +16,7 @@ const Homepage = () => {
   return (<div>
             <Container>
               <Row>
-                <Card style={{ width: '90%', margin: '0 auto', float: 'none', marginTop:'7vh', borderWidth: '0px'}}>
+                <Card style={{ width: '90%', margin: '0 auto', float: 'none', marginTop:'1vh', borderWidth: '1px', marginBottom: '5vh'}}>
                     <Card.Body>
                     <Table responsive>
                       <thead>
