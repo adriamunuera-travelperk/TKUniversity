@@ -13,19 +13,35 @@ const useInputFieldHook = (initialText) => {
   }
 }
 
+const useArrayState = (initialArray) => {
+  const [array, setArray] = useState(initialArray)
+  return {
+    array,
+    append: (x) => setArray([...array, x]),
+    deleteAtIndex: (i) => setArray([...array.slice(0,i), ...array.slice(i+1)]),
+    modifyAtIndex: (x, i) => setArray([...array.slice(0,i), x, ...array.slice(i+1)])
+  }
+}
 
 const AddRecipe = (props) => {
   const name = (props.name? props.name:'')
   const description = (props.description? props.description:'')
-  const ingredients = (props.ingredients? props.ingredients:'')
+  const ingredients = (props.ingredients? props.ingredients:[])
 
   const nameInputFieldHook = useInputFieldHook(name)
   const descriptionInputFieldHook = useInputFieldHook(description)
+  const ingredientsHook = useArrayState(ingredients)
 
   const onSubmitFunction = () => null
   const addRecipe = () => {
+    const formattedIngredients = ingredientsHook.array.map(x => ({'name': x}))
+    console.log(formattedIngredients)
     const URL = 'http://localhost:8000/api/recipes/'
-    const payload = {'name': nameInputFieldHook.text, 'description': descriptionInputFieldHook.text, 'ingredients':[]}
+    const payload = {
+      'name': nameInputFieldHook.text,
+      'description': descriptionInputFieldHook.text,
+      'ingredients': formattedIngredients
+    }
     console.log(payload)
     axios.post(URL, payload).then(response => console.log(response))
   }
@@ -66,7 +82,7 @@ const AddRecipe = (props) => {
                       </ListGroup.Item>
 
                       <ListGroup.Item>
-                        <AddIngredients ingredients={ingredients}/>
+                        <AddIngredients arrayHook={ingredientsHook}/>
                       </ListGroup.Item>
 
                       <ListGroup.Item>

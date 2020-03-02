@@ -7,18 +7,21 @@ import axios from 'axios'
 
 
 const Homepage = () => {
-  const [allRecipesFromAPI, setRecipes] = useState([]) //TODO: GET
+  const [allRecipesFromAPI, setRecipes] = useState([])
 
   useEffect(() => {
     async function getAllIngredients() {
       const URL = 'http://localhost:8000/api/recipes/'
-      await axios.get(URL).then(response => setRecipes(JSON.parse(response.data)))
+      await axios.get(URL).then(response => {
+        console.log(JSON.parse(response.data))
+        setRecipes(JSON.parse(response.data))
+      })
     }
     getAllIngredients()
   },[])
 
-  const deleteRecipeAt = (index) => {
-    const URL = 'http://localhost:8000/api/recipes/'+index.toString()
+  const deleteRecipeAt = (id, index) => {
+    const URL = 'http://localhost:8000/api/recipes/'+ id.toString()
     axios.delete(URL).then(response => console.log(response)).then(() => {
       setRecipes([...allRecipesFromAPI.slice(0,index),...allRecipesFromAPI.slice(index+1)])
     })
@@ -43,16 +46,16 @@ const Homepage = () => {
                         {
                           allRecipesFromAPI.map((recipe, index) => {
                             return (<tr>
-                                      <td> {index} </td>
+                                      <td> {recipe.id} </td>
                                       <td> {recipe.name} </td>
                                       <td> {ListOfIngredientsToString(recipe.ingredients)} </td>
                                       <td>
                                         <Button variant="info">
-                                          <NavLink exact to={"/recipes/"+index} style={{color:'white'}}>Ver</NavLink>
+                                          <NavLink exact to={"/recipes/"+recipe.id} style={{color:'white'}}>Ver</NavLink>
                                         </Button>
                                       </td>
                                       <td>
-                                        <Button onClick={() => deleteRecipeAt(index)} variant="danger">Eliminar</Button>
+                                        <Button onClick={() => deleteRecipeAt(recipe.id, index)} variant="danger">Eliminar</Button>
                                       </td>
                                     </tr>)
                           })

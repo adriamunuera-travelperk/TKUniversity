@@ -2,20 +2,12 @@ import React, {useState} from 'react'
 import {Button, ListGroup, InputGroup, FormControl} from 'react-bootstrap'
 import './App.css'
 
-const useArrayState = (initialArray) => {
-  const [array, setArray] = useState(initialArray)
-  return {
-    array,
-    append: (x) => setArray([...array, x]),
-    deleteAtIndex: (i) => setArray([...array.slice(0,i), ...array.slice(i+1)]),
-    modifyAtIndex: (x, i) => setArray([...array.slice(0,i), x, ...array.slice(i+1)])
-  }
-}
+
 
 
 const AddIngredients = (props) => {
   const ingredients = (props.ingredients? props.ingredients:[])
-  const arrayHook = useArrayState(ingredients)
+  const arrayHook = props.arrayHook
   const addIngredient = () => arrayHook.append('')
   return (<div>
             {arrayHook.array.map((value, index) => {
