@@ -58,17 +58,23 @@ class RecipeDetailAPIView(generics.RetrieveUpdateDestroyAPIView):
                 name = request.data.get('name')
                 recipe.name = name
 
-            if request.data.getlist('ingredients'):
-                past_ingredients = recipe.ingredients
-                if not past_ingredients.name == None:
-                    past_ingredients.delete()
-                ingredients_data = request.data.getlist('ingredients')
-                for ingredient in ingredients_data:
-                    ing_map = ast.literal_eval(ingredient)
-                    ingredient = Ingredient.objects.create(
-                        name=ing_map['name'],
-                        recipe=recipe
-                    )
+            if isinstance(request.data, dict):
+                past_ingredients = Ingredient.objects.filter(recipe=recipe).delete()
+                if request.data.get('ingredients'):
+                    ingredients_data = request.data.get('ingredients')
+                    for ingredient in ingredients_data:
+                        Ingredient.objects.create(name=ingredient['name'],
+                                                recipe=recipe)
+            else:
+                past_ingredients = Ingredient.objects.filter(recipe=recipe).delete()
+                if request.data.getlist('ingredients'):
+                    ingredients_data = request.data.getlist('ingredients')
+                    for ingredient in ingredients_data:
+                        ing_map = ast.literal_eval(ingredient)
+                        ingredient = Ingredient.objects.create(
+                            name=ing_map['name'],
+                            recipe=recipe
+                        )
             return Response(json.dumps(RecipeSerializer(recipe).data), status=status.HTTP_200_OK)
         else:
             return Response(json.dumps('{}'), status=status.HTTP_400_BAD_REQUEST)

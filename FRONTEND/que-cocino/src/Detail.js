@@ -6,6 +6,7 @@ import axios from 'axios'
 
 import './App.css'
 import AddRecipe from './AddRecipe'
+import {ListOfIngredientsToList} from './utils'
 import BASE_URL from './constants'
 
 
@@ -82,7 +83,7 @@ const Detail = (props) => {
               </Row>
             </Container>)
   } else {
-    return <AddRecipe name={name} description={description} ingredients={ingredients}/>
+    return <AddRecipe name={name} description={description} ingredients={ListOfIngredientsToList(ingredients)} id={index}/>
   }
 }
 

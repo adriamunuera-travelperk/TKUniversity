@@ -28,6 +28,7 @@ const useArrayState = (initialArray) => {
 
 
 const AddRecipe = (props) => {
+  const index = (props.id? props.id:'')
   const name = (props.name? props.name:'')
   const description = (props.description? props.description:'')
   const ingredients = (props.ingredients? props.ingredients:[])
@@ -38,21 +39,38 @@ const AddRecipe = (props) => {
 
   const addRecipeAction = () => {
     const formattedIngredients = ingredientsHook.array.map(x => ({'name': x}))
-    console.log(formattedIngredients)
     const payload = {
       'name': nameInputFieldHook.text,
       'description': descriptionInputFieldHook.text,
       'ingredients': formattedIngredients
     }
-    console.log(payload)
     axios.post(BASE_URL, payload).then(response => console.log(response))
   }
+
+  const patchRecipeAction = () => {
+    const formattedIngredients = ingredientsHook.array.map(x => ({'name': x}))
+    const payload = {
+      'name': nameInputFieldHook.text,
+      'description': descriptionInputFieldHook.text,
+      'ingredients': formattedIngredients
+    }
+    const URL = BASE_URL +(index).toString() + '/'
+    console.log(payload)
+    console.log(URL)
+    axios.patch(URL, payload).then(response => console.log(response))
+  }
+
+  let isPatchingAction = false
+  if (index !== '') isPatchingAction = true
+
+  let titleText = (isPatchingAction? 'Actualiza la receta':'Añade una receta')
+  let updateText = (isPatchingAction? '¡Actualiza la receta!':'¡Añade la receta!')
 
   return (<Container>
             <Row>
               <Card style={{ width: '30rem', margin: '0 auto', float: 'none', marginTop:'1vh', marginBottom:'5vh'}}>
                 <Card.Body>
-                  <Card.Title > Añade una receta </Card.Title>
+                  <Card.Title > {titleText} </Card.Title>
                     <ListGroup>
                       <ListGroup.Item>
                         <form onSubmit={()=>null}>
@@ -89,7 +107,7 @@ const AddRecipe = (props) => {
 
                       <ListGroup.Item>
                         <Button variant="secondary" onClick={() => console.log('TODO!')} className='detailButton'>Atrás</Button>
-                        <Button variant="warning" onClick={() => addRecipeAction()} className='detailButton'>¡Añade la receta!</Button>
+                        <Button variant="warning" onClick={() => (isPatchingAction? patchRecipeAction():addRecipeAction())} className='detailButton'>{updateText}</Button>
                       </ListGroup.Item>
                     </ListGroup>
                 </Card.Body>

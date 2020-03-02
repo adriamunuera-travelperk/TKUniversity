@@ -7,7 +7,7 @@ import './App.css'
 const AddIngredients = (props) => {
   const ingredientsHook = props.ingredientsHook
   const addIngredientAction = () => ingredientsHook.append('')
-  
+
   return (<div>
             {ingredientsHook.array.map((value, index) => {
               return <AddIngredientField
@@ -29,7 +29,7 @@ const AddIngredientField = (props) => {
                   type='text'
                   name='Ingredients'
                   onChange={(e) => props.modifyAtIndex(e.target.value)}
-                  value={props.text.name}
+                  value={props.text}
                   className={'addIngredientField'}
                   placeholder='Ingrediente'
                 />
