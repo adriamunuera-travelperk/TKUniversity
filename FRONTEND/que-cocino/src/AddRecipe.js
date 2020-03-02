@@ -5,7 +5,7 @@ import axios from 'axios'
 
 import AddIngredients from './AddIngredients'
 import BASE_URL from './constants'
-
+import AlertDismissible from './Alert'
 
 const useInputFieldHook = (initialText) => {
   const [text, setText]= useState(initialText)
@@ -28,6 +28,15 @@ const useArrayState = (initialArray) => {
 }
 
 
+const useBoolState = (initialBool) => {
+  const [b, setBool] = useState(initialBool)
+  return {
+    b,
+    toggle: () => setBool(!b)
+  }
+}
+
+
 const AddRecipe = (props) => {
   const index = (props.id? props.id:'')
   const name = (props.name? props.name:'')
@@ -37,6 +46,8 @@ const AddRecipe = (props) => {
   const nameInputFieldHook = useInputFieldHook(name)
   const descriptionInputFieldHook = useInputFieldHook(description)
   const ingredientsHook = useArrayState(ingredients)
+  const shouldShowAlert = useBoolState(false)
+  const shouldShowAlertMoidfy = useBoolState(false)
 
   const goBack = () => props.history.goBack()
 
@@ -47,7 +58,11 @@ const AddRecipe = (props) => {
       'description': descriptionInputFieldHook.text,
       'ingredients': formattedIngredients
     }
-    axios.post(BASE_URL, payload).then(response => console.log(response.status))
+    axios.post(BASE_URL, payload).then(response => {
+      if (response.status === 201) {
+        shouldShowAlert.toggle()
+      }
+    })
   }
 
   const patchRecipeAction = () => {
@@ -58,7 +73,11 @@ const AddRecipe = (props) => {
       'ingredients': formattedIngredients
     }
     const URL = BASE_URL +(index).toString() + '/'
-    axios.patch(URL, payload).then(response => console.log(response.status))
+    axios.patch(URL, payload).then(response => {
+      if (response.status === 200) {
+        shouldShowAlertMoidfy.toggle()
+      }
+    })
   }
 
   let isPatchingAction = false
@@ -68,6 +87,26 @@ const AddRecipe = (props) => {
   let updateText = (isPatchingAction? '¡Actualiza la receta!':'¡Añade la receta!')
 
   return (<Container>
+            {(() => {
+              if (shouldShowAlert.b) {
+                return <AlertDismissible
+                  variant='success'
+                  heading='¡Éxito!'
+                  text='La receta ha sido añadida.'
+                  onCloseAction={() => shouldShowAlert.toggle()}
+                />
+              }
+            })()}
+            {(() => {
+              if (shouldShowAlertMoidfy.b) {
+                return <AlertDismissible
+                  variant='warning'
+                  heading='¡Éxito!'
+                  text='La receta ha sido añadida.'
+                  onCloseAction={() => shouldShowAlertMoidfy.toggle()}
+                />
+              }
+            })()}
             <Row>
               <Card style={{ width: '30rem', margin: '0 auto', float: 'none', marginTop:'1vh', marginBottom:'5vh'}}>
                 <Card.Body>
