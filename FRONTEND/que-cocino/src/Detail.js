@@ -1,12 +1,12 @@
 import React, {useState, useEffect} from 'react'
 import {Button, Card, Container, Row, Table} from 'react-bootstrap'
-import {Redirect, withRouter} from 'react-router-dom'
+import {Redirect} from 'react-router-dom'
 import {v4 as uuid} from 'uuid'
-import './App.css'
 import axios from 'axios'
 
+import './App.css'
 import AddRecipe from './AddRecipe'
-import ListOfIngredientsToList from './utils'
+import BASE_URL from './constants'
 
 
 const useBoolState = (initialBool) => {
@@ -19,48 +19,39 @@ const useBoolState = (initialBool) => {
 
 
 const Detail = (props) => {
-
   const boolHook = useBoolState(true)
   const shouldRedirectToHomeHook = useBoolState(false)
   const [recipeObject, setRecipe] = useState({'name': '', 'description': '', 'ingredients':[]})
-
   const index = props.id
-  console.log('INDEX', index)
+
   useEffect(() => {
     async function getRecipe() {
-      const URL = 'http://localhost:8000/api/recipes/'+index.toString()
-      console.log(URL)
+      const URL = BASE_URL +index.toString()
       await axios.get(URL).then(response => {
-        console.log('RESPONSE', response.data)
         setRecipe(response.data)
       })
     }
     getRecipe()
   },[])
 
+  const deleteRecipeAt = () => {
+    const URL = BASE_URL +(index).toString()
+    axios.delete(URL).then(response => {
+      if (response.status === 204) {
+        shouldRedirectToHomeHook.toggle()
+      }
+    })
+  }
 
-  if (!index) return <Redirect to='/recipes/'/>
-
-  console.log('RECIPE!!1', recipeObject)
   if (recipeObject == null) return <Redirect to='/recipes/'/>
   const name = recipeObject.name
   const description = recipeObject.description
   const ingredients = recipeObject.ingredients
   const imgSrc = 'https://www.simplyrecipes.com/wp-content/uploads/2019/09/easy-pepperoni-pizza-lead-4.jpg'
 
-  const deleteRecipeAt = () => {
-    const URL = 'http://localhost:8000/api/recipes/'+(index).toString()
-    axios.delete(URL).then(response => {
-      if (response.status == 204) {
-        shouldRedirectToHomeHook.toggle()
-      }
-    })
-  }
-
   if (shouldRedirectToHomeHook.b) {
     return (<Redirect to='/recipes/'/>)
   }
-
   if (boolHook.b) {
     return (<Container>
               <Row>

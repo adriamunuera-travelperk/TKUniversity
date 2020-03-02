@@ -1,9 +1,11 @@
 import React, {useState, useEffect} from 'react'
 import {Button, Card, Container, Row, Table} from 'react-bootstrap'
-import {Switch, Route, NavLink, Redirect} from 'react-router-dom'
+import {NavLink} from 'react-router-dom'
+import axios from 'axios'
+
 import './App.css';
 import {ListOfIngredientsToString} from './utils'
-import axios from 'axios'
+import BASE_URL from './constants'
 
 
 const Homepage = () => {
@@ -11,19 +13,20 @@ const Homepage = () => {
 
   useEffect(() => {
     async function getAllIngredients() {
-      const URL = 'http://localhost:8000/api/recipes/'
-      await axios.get(URL).then(response => {
-        console.log(JSON.parse(response.data))
-        setRecipes(JSON.parse(response.data))
-      })
+      await axios.get(BASE_URL).then(response => setRecipes(JSON.parse(response.data)))
     }
     getAllIngredients()
   },[])
 
   const deleteRecipeAt = (id, index) => {
-    const URL = 'http://localhost:8000/api/recipes/'+ id.toString()
-    axios.delete(URL).then(response => console.log(response)).then(() => {
-      setRecipes([...allRecipesFromAPI.slice(0,index),...allRecipesFromAPI.slice(index+1)])
+    const URL = BASE_URL + id.toString()
+    axios.delete(URL).then(response => {
+      if (response.status !== 204) return
+    }).then(() => {
+      setRecipes([
+        ...allRecipesFromAPI.slice(0,index),
+        ...allRecipesFromAPI.slice(index+1)
+      ])
     })
   }
   return (<div>

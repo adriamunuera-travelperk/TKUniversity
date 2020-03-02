@@ -1,12 +1,10 @@
-import React, {useState} from 'react'
-import {Button, ListGroup, InputGroup, FormControl} from 'react-bootstrap'
+import React from 'react'
+import {Button} from 'react-bootstrap'
+
 import './App.css'
 
 
-
-
 const AddIngredients = (props) => {
-  const ingredients = (props.ingredients? props.ingredients:[])
   const arrayHook = props.arrayHook
   const addIngredient = () => arrayHook.append('')
   return (<div>
@@ -17,10 +15,11 @@ const AddIngredients = (props) => {
                 text={arrayHook.array[index]}/>
             })}
             <Button variant="outline-primary" onClick={() => addIngredient()}>
-              Añadir ingrediente
+              Añadir otro ingrediente
             </Button>
           </div>)
 }
+
 
 const AddIngredientField = (props) => {
   return (<div>

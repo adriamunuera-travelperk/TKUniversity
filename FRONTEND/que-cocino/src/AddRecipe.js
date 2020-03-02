@@ -1,7 +1,9 @@
 import React, {useState} from 'react'
-import {Button, Card, Container, Row, Table, ListGroup, InputGroup, FormControl} from 'react-bootstrap'
-import AddIngredients from './AddIngredients'
+import {Button, Card, Container, Row, ListGroup, InputGroup} from 'react-bootstrap'
 import axios from 'axios'
+
+import AddIngredients from './AddIngredients'
+import BASE_URL from './constants'
 
 
 const useInputFieldHook = (initialText) => {
@@ -13,6 +15,7 @@ const useInputFieldHook = (initialText) => {
   }
 }
 
+
 const useArrayState = (initialArray) => {
   const [array, setArray] = useState(initialArray)
   return {
@@ -23,6 +26,7 @@ const useArrayState = (initialArray) => {
   }
 }
 
+
 const AddRecipe = (props) => {
   const name = (props.name? props.name:'')
   const description = (props.description? props.description:'')
@@ -32,18 +36,16 @@ const AddRecipe = (props) => {
   const descriptionInputFieldHook = useInputFieldHook(description)
   const ingredientsHook = useArrayState(ingredients)
 
-  const onSubmitFunction = () => null
   const addRecipe = () => {
     const formattedIngredients = ingredientsHook.array.map(x => ({'name': x}))
     console.log(formattedIngredients)
-    const URL = 'http://localhost:8000/api/recipes/'
     const payload = {
       'name': nameInputFieldHook.text,
       'description': descriptionInputFieldHook.text,
       'ingredients': formattedIngredients
     }
     console.log(payload)
-    axios.post(URL, payload).then(response => console.log(response))
+    axios.post(BASE_URL, payload).then(response => console.log(response))
   }
 
   return (<Container>
