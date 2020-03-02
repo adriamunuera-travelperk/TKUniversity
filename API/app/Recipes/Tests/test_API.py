@@ -40,6 +40,7 @@ class APITests(TestCase):
     def test_create_recipe(self):
         """ Test creating a recipe """
         payload = {
+            'id': 1,
             'name': 'Curry boar',
             'description': 'Make it in the BBQ',
             'ingredients':[]
@@ -59,6 +60,7 @@ class APITests(TestCase):
     def test_create_recipe_with_ingredients(self):
         """ Test creating a recipe with ingredients """
         payload = {
+            'id': 1,
             'name': 'Curry boar',
             'description': 'Make it into the fire',
             'ingredients': [
@@ -104,6 +106,7 @@ class APITests(TestCase):
     def test_patch_recipe(self):
         createSampleRecipe1()
         payload = {
+            'id': 1,
             'name': 'Curry boar',
             'description': 'Make it into the fire',
             'ingredients': [

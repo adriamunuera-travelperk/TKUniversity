@@ -12,7 +12,7 @@ class SerializersTests(TestCase):
             name = recipeName,
             description = recipeDescription
         )
-        expectedResult =  {'name': 'Llenties', 'description': 'Demanar un tupper', 'ingredients': []}
+        expectedResult =  {'id': 1, 'name': 'Llenties', 'description': 'Demanar un tupper', 'ingredients': []}
         self.assertEqual(expectedResult, RecipeSerializer(recipe).data)
 
 
@@ -31,7 +31,7 @@ class SerializersTests(TestCase):
             recipe = recipe
         )
 
-        expectedResult =  {'name': 'Pizza', 'description': 'A la italiana', 'ingredients': [{'name':'Tomate'}]}
+        expectedResult =  'id': 1, {'name': 'Pizza', 'description': 'A la italiana', 'ingredients': [{'name':'Tomate'}]}
         self.assertEqual(expectedResult, RecipeSerializer(recipe).data)
 
     def test_serialize_only_ingredients_of_recipe(self):
@@ -60,5 +60,5 @@ class SerializersTests(TestCase):
             name = ingredientName,
             recipe = recipe2
         )
-        expectedResult =  {'name': 'Pizza', 'description': 'A la italiana', 'ingredients': [{'name':'Tomate'}]}
+        expectedResult =  {'id': 1, 'name': 'Pizza', 'description': 'A la italiana', 'ingredients': [{'name':'Tomate'}]}
         self.assertEqual(expectedResult, RecipeSerializer(recipe1).data)
