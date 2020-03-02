@@ -14,8 +14,8 @@ const AddIngredients = (props) => {
               return <AddIngredientField
                 deleteAtIndex={() => ingredientsHook.deleteAtIndex(index)}
                 modifyAtIndex={(x) => ingredientsHook.modifyAtIndex(x, index)}
-                text={ingredientsHook.array[index]}
-                key={uuid()}/>
+                text={ingredientsHook.array[index]} //// !!! with key={uuid()} the field loses focus when modified!!!!!
+                />
             })}
             <Button variant="outline-primary" onClick={() => addIngredientAction()}>
               Añadir otro ingrediente

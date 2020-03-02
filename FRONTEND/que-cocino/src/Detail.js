@@ -62,11 +62,10 @@ const Detail = (props) => {
                   <Card.Img variant="top" src={imgSrc} className='RecipeImage' />
                   <Card.Body>
                     <Card.Title > {name} </Card.Title>
-                    <p>{description}</p>
                     <Table responsive>
                       <thead>
                         <tr>
-                          <th>Ingredients</th>
+                          <th>Ingredientes</th>
                         </tr>
                       </thead>
                       <tbody>
@@ -75,6 +74,7 @@ const Detail = (props) => {
                       })}
                       </tbody>
                     </Table>
+                    <p>{description}</p>
                     <div>
                       <Button variant="secondary" onClick={goBack} className='detailButton'>Atrás</Button>
                       <Button variant="warning" onClick={() => shouldDisplayEditHook.toggle()} className='detailButton'>Editar</Button>

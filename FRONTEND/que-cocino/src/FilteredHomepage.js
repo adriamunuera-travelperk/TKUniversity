@@ -54,7 +54,7 @@ const FilteredHomepage = (props) => {
                           allRecipesFromAPI.map((recipe, index) => {
                             return (<tr key={uuid()}>
                                       <td> {index} </td>
-                                      <td> {recipe.name} </td>
+                                      <td> <b>{recipe.name}</b> </td>
                                       <td> {ListOfIngredientsToString(recipe.ingredients)} </td>
                                       <td>
                                         <NavLink exact to={"/recipes/"+recipe.id} style={{color:'white'}}>

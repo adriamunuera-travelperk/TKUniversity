@@ -52,7 +52,7 @@ const Homepage = () => {
                           allRecipesFromAPI.map((recipe, index) => {
                             return (<tr key={uuid()}>
                                       <td> {index} </td>
-                                      <td> {recipe.name} </td>
+                                      <td> <b>{recipe.name}</b> </td>
                                       <td> {ListOfIngredientsToString(recipe.ingredients)} </td>
                                       <td>
                                         <Button variant="info">
