@@ -69,11 +69,9 @@ const FilteredHomepage = (props) => {
                         }
                       </tbody>
                     </Table>
-                    <Button variant="primary" size="lg">
-                      <NavLink exact to={"/recipes/add"} style={{color:'white'}}>
-                        Añadir receta
-                      </NavLink>
-                    </Button>
+                    <NavLink exact to={"/recipes/add"} style={{color:'white'}}>
+                      <Button variant="primary" size="lg"> Añadir receta </Button>
+                    </NavLink>
                   </Card.Body>
                 </Card>
               </Row>

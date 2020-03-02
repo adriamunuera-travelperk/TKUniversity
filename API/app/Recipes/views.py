@@ -58,6 +58,10 @@ class RecipeDetailAPIView(generics.RetrieveUpdateDestroyAPIView):
                 name = request.data.get('name')
                 recipe.name = name
 
+            print('\n \n \n')
+            print(recipe.name, recipe.description)
+            print('\n \n \n')
+            recipe.save()
             if isinstance(request.data, dict):
                 past_ingredients = Ingredient.objects.filter(recipe=recipe).delete()
                 if request.data.get('ingredients'):

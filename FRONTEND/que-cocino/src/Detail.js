@@ -7,7 +7,7 @@ import axios from 'axios'
 import './App.css'
 import AddRecipe from './AddRecipe'
 import {ListOfIngredientsToList} from './utils'
-import BASE_URL from './constants'
+import BASE_URL, {BASE_IMGS_URL} from './constants'
 
 
 const useBoolState = (initialBool) => {
@@ -50,7 +50,7 @@ const Detail = (props) => {
   const name = recipeObject.name
   const description = recipeObject.description
   const ingredients = recipeObject.ingredients
-  const imgSrc = 'https://www.simplyrecipes.com/wp-content/uploads/2019/09/easy-pepperoni-pizza-lead-4.jpg'
+  const imgSrc = BASE_IMGS_URL + name
 
   if (shouldRedirectToHomeHook.b) {
     return (<Redirect to='/recipes/'/>)

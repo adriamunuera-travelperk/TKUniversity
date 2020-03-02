@@ -55,9 +55,9 @@ const Homepage = () => {
                                       <td> <b>{recipe.name}</b> </td>
                                       <td> {ListOfIngredientsToString(recipe.ingredients)} </td>
                                       <td>
-                                        <Button variant="info">
-                                          <NavLink exact to={"/recipes/"+recipe.id} style={{color:'white'}}>Ver</NavLink>
-                                        </Button>
+                                          <NavLink exact to={"/recipes/"+recipe.id} style={{color:'white'}}>
+                                            <Button variant="info">Ver</Button>
+                                          </NavLink>
                                       </td>
                                       <td>
                                         <Button onClick={() => deleteRecipeAt_Action(recipe.id, index)} variant="danger">Eliminar</Button>
@@ -67,11 +67,9 @@ const Homepage = () => {
                         }
                       </tbody>
                     </Table>
-                    <Button variant="primary" size="lg">
-                      <NavLink exact to={"/recipes/add"} style={{color:'white'}}>
-                        Añadir receta
-                      </NavLink>
-                    </Button>
+                    <NavLink exact to={"/recipes/add"} style={{color:'white'}}>
+                      <Button variant="primary" size="lg">Añadir receta</Button>
+                    </NavLink>
                   </Card.Body>
                 </Card>
               </Row>
