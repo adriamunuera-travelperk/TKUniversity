@@ -39,7 +39,7 @@ const AddRecipe = (props) => {
   const ingredientsHook = useArrayState(ingredients)
 
   const goBack = () => props.history.goBack()
-  
+
   const addRecipeAction = () => {
     const formattedIngredients = ingredientsHook.array.map(x => ({'name': x}))
     const payload = {
@@ -47,7 +47,7 @@ const AddRecipe = (props) => {
       'description': descriptionInputFieldHook.text,
       'ingredients': formattedIngredients
     }
-    axios.post(BASE_URL, payload).then(response => console.log(response))
+    axios.post(BASE_URL, payload).then(response => console.log(response.status))
   }
 
   const patchRecipeAction = () => {
@@ -58,9 +58,7 @@ const AddRecipe = (props) => {
       'ingredients': formattedIngredients
     }
     const URL = BASE_URL +(index).toString() + '/'
-    console.log(payload)
-    console.log(URL)
-    axios.patch(URL, payload).then(response => console.log(response))
+    axios.patch(URL, payload).then(response => console.log(response.status))
   }
 
   let isPatchingAction = false

@@ -31,10 +31,13 @@ class RecipeSerializer(serializers.ModelSerializer):
         )
 
         ingredients_data = ''
+        print('\n \n', validated_data)
+        print('\n \n', type(validated_data))
         if isinstance(validated_data, dict):
             ingredients_data = validated_data.get('ingredients')
             if ingredients_data:
                 for ingredient in ingredients_data:
+                    print(ingredient, type(ingredient))
                     ingredient = Ingredient.objects.create(
                         name=ingredient['name'],
                         recipe=recipe

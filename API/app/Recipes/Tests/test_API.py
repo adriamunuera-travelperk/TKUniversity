@@ -68,6 +68,7 @@ class APITests(TestCase):
                 {'name': 'Curry!'}
             ]
         }
+
         response = self.client.post(RECIPES_URL, payload)
         exists = Recipe.objects.filter(
             name=payload['name'],
