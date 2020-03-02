@@ -19,7 +19,7 @@ const useBoolState = (initialBool) => {
 
 
 const Detail = (props) => {
-  const boolHook = useBoolState(true)
+  const shouldDisplayEditHook = useBoolState(true)
   const shouldRedirectToHomeHook = useBoolState(false)
   const [recipeObject, setRecipe] = useState({'name': '', 'description': '', 'ingredients':[]})
   const index = props.id
@@ -34,7 +34,7 @@ const Detail = (props) => {
     getRecipe()
   },[])
 
-  const deleteRecipeAt = () => {
+  const deleteRecipeAction = () => {
     const URL = BASE_URL +(index).toString()
     axios.delete(URL).then(response => {
       if (response.status === 204) {
@@ -52,7 +52,7 @@ const Detail = (props) => {
   if (shouldRedirectToHomeHook.b) {
     return (<Redirect to='/recipes/'/>)
   }
-  if (boolHook.b) {
+  if (shouldDisplayEditHook.b) {
     return (<Container>
               <Row>
                 <Card style={{ width: '30rem', margin: '0 auto', float: 'none', marginTop:'1vh', marginBottom:'5vh'}}>
@@ -74,8 +74,8 @@ const Detail = (props) => {
                     </Table>
                     <div>
                       <Button variant="secondary" onClick={() => console.log('TODO!')} className='detailButton'>Atrás</Button>
-                      <Button variant="warning" onClick={() => boolHook.toggle()} className='detailButton'>Editar</Button>
-                      <Button variant="danger" onClick={deleteRecipeAt} className='detailButton'>Eliminar</Button>
+                      <Button variant="warning" onClick={() => shouldDisplayEditHook.toggle()} className='detailButton'>Editar</Button>
+                      <Button variant="danger" onClick={deleteRecipeAction} className='detailButton'>Eliminar</Button>
                     </div>
                   </Card.Body>
                 </Card>

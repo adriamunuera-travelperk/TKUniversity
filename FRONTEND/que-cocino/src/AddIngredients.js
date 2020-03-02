@@ -5,16 +5,17 @@ import './App.css'
 
 
 const AddIngredients = (props) => {
-  const arrayHook = props.arrayHook
-  const addIngredient = () => arrayHook.append('')
+  const ingredientsHook = props.ingredientsHook
+  const addIngredientAction = () => ingredientsHook.append('')
+  
   return (<div>
-            {arrayHook.array.map((value, index) => {
+            {ingredientsHook.array.map((value, index) => {
               return <AddIngredientField
-                deleteAtIndex={() => arrayHook.deleteAtIndex(index)}
-                modifyAtIndex={(x) => arrayHook.modifyAtIndex(x, index)}
-                text={arrayHook.array[index]}/>
+                deleteAtIndex={() => ingredientsHook.deleteAtIndex(index)}
+                modifyAtIndex={(x) => ingredientsHook.modifyAtIndex(x, index)}
+                text={ingredientsHook.array[index]}/>
             })}
-            <Button variant="outline-primary" onClick={() => addIngredient()}>
+            <Button variant="outline-primary" onClick={() => addIngredientAction()}>
               Añadir otro ingrediente
             </Button>
           </div>)

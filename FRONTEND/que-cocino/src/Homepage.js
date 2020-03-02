@@ -18,7 +18,7 @@ const Homepage = () => {
     getAllIngredients()
   },[])
 
-  const deleteRecipeAt = (id, index) => {
+  const deleteRecipeAt_Action = (id, index) => {
     const URL = BASE_URL + id.toString()
     axios.delete(URL).then(response => {
       if (response.status !== 204) return
@@ -49,7 +49,7 @@ const Homepage = () => {
                         {
                           allRecipesFromAPI.map((recipe, index) => {
                             return (<tr>
-                                      <td> {recipe.id} </td>
+                                      <td> {index} </td>
                                       <td> {recipe.name} </td>
                                       <td> {ListOfIngredientsToString(recipe.ingredients)} </td>
                                       <td>
@@ -58,7 +58,7 @@ const Homepage = () => {
                                         </Button>
                                       </td>
                                       <td>
-                                        <Button onClick={() => deleteRecipeAt(recipe.id, index)} variant="danger">Eliminar</Button>
+                                        <Button onClick={() => deleteRecipeAt_Action(recipe.id, index)} variant="danger">Eliminar</Button>
                                       </td>
                                     </tr>)
                           })

@@ -36,7 +36,7 @@ const AddRecipe = (props) => {
   const descriptionInputFieldHook = useInputFieldHook(description)
   const ingredientsHook = useArrayState(ingredients)
 
-  const addRecipe = () => {
+  const addRecipeAction = () => {
     const formattedIngredients = ingredientsHook.array.map(x => ({'name': x}))
     console.log(formattedIngredients)
     const payload = {
@@ -84,12 +84,12 @@ const AddRecipe = (props) => {
                       </ListGroup.Item>
 
                       <ListGroup.Item>
-                        <AddIngredients arrayHook={ingredientsHook}/>
+                        <AddIngredients ingredientsHook={ingredientsHook}/>
                       </ListGroup.Item>
 
                       <ListGroup.Item>
                         <Button variant="secondary" onClick={() => console.log('TODO!')} className='detailButton'>Atrás</Button>
-                        <Button variant="warning" onClick={() => addRecipe()} className='detailButton'>¡Añade la receta!</Button>
+                        <Button variant="warning" onClick={() => addRecipeAction()} className='detailButton'>¡Añade la receta!</Button>
                       </ListGroup.Item>
                     </ListGroup>
                 </Card.Body>
