@@ -22,20 +22,32 @@ class RecipeSerializer(serializers.ModelSerializer):
 
     def create(self, validated_data):
         """ Overriding the default create method """
-
+        print('\n \n \n \n \n \n VALIDATED DATA', (validated_data), '\n \n \n \n \n \n ')
         name = validated_data.get('name')
         description = validated_data.get('description')
-        ingredients_data = validated_data.getlist('ingredients')
+
         recipe = Recipe.objects.create(
             name=name,
             description=description
         )
 
-        for ingredient in ingredients_data:
-            ing_map = ast.literal_eval(ingredient)
-            ingredient = Ingredient.objects.create(
-                name=ing_map['name'],
-                recipe=recipe
-            )
+        ingredients_data = ''
+        if isinstance(validated_data, dict):
+            ingredients_data = validated_data.get('ingredients')
+            if ingredients_data:
+                for ingredient in ingredients_data:
+                    ingredient = Ingredient.objects.create(
+                        name=ingredient['name'],
+                        recipe=recipe
+                    )
+        else:
+            ingredients_data = validated_data.getlist('ingredients')
+            if ingredients_data:
+                for ingredient in ingredients_data:
+                    ing_map = ast.literal_eval(ingredient)
+                    ingredient = Ingredient.objects.create(
+                        name=ing_map['name'],
+                        recipe=recipe
+                    )
 
         return RecipeSerializer(recipe).data
