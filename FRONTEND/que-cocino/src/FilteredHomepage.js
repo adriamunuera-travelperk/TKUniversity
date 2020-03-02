@@ -2,6 +2,7 @@ import React, {useState, useEffect} from 'react'
 import {Button, Card, Container, Row, Table} from 'react-bootstrap'
 import {NavLink} from 'react-router-dom'
 import axios from 'axios'
+import {v4 as uuid} from 'uuid'
 
 import './App.css';
 import {ListOfIngredientsToString} from './utils'
@@ -10,13 +11,12 @@ import BASE_URL from './constants'
 
 const FilteredHomepage = (props) => {
   const [allRecipesFromAPI, setRecipes] = useState([])
-  console.log(props.queryHook.text)
+
   useEffect(() => {
     async function getAllIngredients() {
       const URL = BASE_URL + '?name=' + props.queryHook.text
       await axios.get(URL).then(response => setRecipes(JSON.parse(response.data)))
     }
-    console.log('HEY!!!!!')
     getAllIngredients()
   },[props.queryHook.text])
 
@@ -33,6 +33,7 @@ const FilteredHomepage = (props) => {
   }
 
   return (<div>
+            <h1>Recetas filtradas</h1>
             <Container>
               <Row>
                 <Card style={{ width: '90%', margin: '0 auto', float: 'none', marginTop:'1vh', borderWidth: '1px', marginBottom: '5vh'}}>
@@ -51,14 +52,14 @@ const FilteredHomepage = (props) => {
                       <tbody>
                         {
                           allRecipesFromAPI.map((recipe, index) => {
-                            return (<tr>
+                            return (<tr key={uuid()}>
                                       <td> {index} </td>
                                       <td> {recipe.name} </td>
                                       <td> {ListOfIngredientsToString(recipe.ingredients)} </td>
                                       <td>
-                                        <Button variant="info">
-                                          <NavLink exact to={"/recipes/"+recipe.id} style={{color:'white'}}>Ver</NavLink>
-                                        </Button>
+                                        <NavLink exact to={"/recipes/"+recipe.id} style={{color:'white'}}>
+                                            <Button variant="info">Ver</Button>
+                                        </NavLink>
                                       </td>
                                       <td>
                                         <Button onClick={() => deleteRecipeAt_Action(recipe.id, index)} variant="danger">Eliminar</Button>

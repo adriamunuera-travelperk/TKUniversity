@@ -1,5 +1,6 @@
 import React, {useState} from 'react'
 import {Button, Card, Container, Row, ListGroup, InputGroup} from 'react-bootstrap'
+import {withRouter} from 'react-router-dom'
 import axios from 'axios'
 
 import AddIngredients from './AddIngredients'
@@ -37,6 +38,8 @@ const AddRecipe = (props) => {
   const descriptionInputFieldHook = useInputFieldHook(description)
   const ingredientsHook = useArrayState(ingredients)
 
+  const goBack = () => props.history.goBack()
+  
   const addRecipeAction = () => {
     const formattedIngredients = ingredientsHook.array.map(x => ({'name': x}))
     const payload = {
@@ -106,7 +109,7 @@ const AddRecipe = (props) => {
                       </ListGroup.Item>
 
                       <ListGroup.Item>
-                        <Button variant="secondary" onClick={() => console.log('TODO!')} className='detailButton'>Atrás</Button>
+                        <Button variant="secondary" onClick={goBack} className='detailButton'>Atrás</Button>
                         <Button variant="warning" onClick={() => (isPatchingAction? patchRecipeAction():addRecipeAction())} className='detailButton'>{updateText}</Button>
                       </ListGroup.Item>
                     </ListGroup>
@@ -116,4 +119,4 @@ const AddRecipe = (props) => {
           </Container>)
 }
 
-export default AddRecipe
+export default withRouter(AddRecipe)

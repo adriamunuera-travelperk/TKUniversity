@@ -1,5 +1,6 @@
 import React from 'react'
 import {Button} from 'react-bootstrap'
+import {v4 as uuid} from 'uuid'
 
 import './App.css'
 
@@ -13,7 +14,8 @@ const AddIngredients = (props) => {
               return <AddIngredientField
                 deleteAtIndex={() => ingredientsHook.deleteAtIndex(index)}
                 modifyAtIndex={(x) => ingredientsHook.modifyAtIndex(x, index)}
-                text={ingredientsHook.array[index]}/>
+                text={ingredientsHook.array[index]}
+                key={uuid()}/>
             })}
             <Button variant="outline-primary" onClick={() => addIngredientAction()}>
               Añadir otro ingrediente

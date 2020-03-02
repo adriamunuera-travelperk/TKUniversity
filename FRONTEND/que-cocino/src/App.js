@@ -42,9 +42,11 @@ function App() {
                 placeholder="Buscar recetas"
                 className="mr-sm-2"
                 onChange={e => inputFieldHook.setText(e.target.value)}/>
-              <Button variant="success">
-                <NavLink exact to={"/recipes/search/"} style={{color:'white'}}>Buscar</NavLink>
-              </Button>
+
+              <NavLink exact to={"/recipes/search/"} style={{color:'white'}}>
+                <Button variant="success">Buscar</Button>
+              </NavLink>
+
             </Form>
           </Navbar.Collapse>
         </Navbar>

@@ -2,6 +2,7 @@ import React, {useState, useEffect} from 'react'
 import {Button, Card, Container, Row, Table} from 'react-bootstrap'
 import {NavLink} from 'react-router-dom'
 import axios from 'axios'
+import {v4 as uuid} from 'uuid'
 
 import './App.css';
 import {ListOfIngredientsToString} from './utils'
@@ -30,6 +31,7 @@ const Homepage = () => {
     })
   }
   return (<div>
+            <h1>Todas las recetas</h1>
             <Container>
               <Row>
                 <Card style={{ width: '90%', margin: '0 auto', float: 'none', marginTop:'1vh', borderWidth: '1px', marginBottom: '5vh'}}>
@@ -48,7 +50,7 @@ const Homepage = () => {
                       <tbody>
                         {
                           allRecipesFromAPI.map((recipe, index) => {
-                            return (<tr>
+                            return (<tr key={uuid()}>
                                       <td> {index} </td>
                                       <td> {recipe.name} </td>
                                       <td> {ListOfIngredientsToString(recipe.ingredients)} </td>

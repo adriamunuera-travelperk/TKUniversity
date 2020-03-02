@@ -1,6 +1,6 @@
 import React, {useState, useEffect} from 'react'
 import {Button, Card, Container, Row, Table} from 'react-bootstrap'
-import {Redirect} from 'react-router-dom'
+import {Redirect, withRouter} from 'react-router-dom'
 import {v4 as uuid} from 'uuid'
 import axios from 'axios'
 
@@ -44,6 +44,8 @@ const Detail = (props) => {
     })
   }
 
+  const goBack = () => props.history.goBack()
+
   if (recipeObject == null) return <Redirect to='/recipes/'/>
   const name = recipeObject.name
   const description = recipeObject.description
@@ -69,12 +71,12 @@ const Detail = (props) => {
                       </thead>
                       <tbody>
                       {ingredients.map(ingredient => {
-                        return <tr key={uuid()}> {ingredient.name} </tr>
+                        return <tr key={uuid()}><td>{ingredient.name}</td></tr>
                       })}
                       </tbody>
                     </Table>
                     <div>
-                      <Button variant="secondary" onClick={() => console.log('TODO!')} className='detailButton'>Atrás</Button>
+                      <Button variant="secondary" onClick={goBack} className='detailButton'>Atrás</Button>
                       <Button variant="warning" onClick={() => shouldDisplayEditHook.toggle()} className='detailButton'>Editar</Button>
                       <Button variant="danger" onClick={deleteRecipeAction} className='detailButton'>Eliminar</Button>
                     </div>
@@ -87,4 +89,4 @@ const Detail = (props) => {
   }
 }
 
-export default Detail
+export default withRouter(Detail)
