@@ -22,7 +22,6 @@ class RecipeSerializer(serializers.ModelSerializer):
 
     def create(self, validated_data):
         """ Overriding the default create method """
-        print('\n \n \n \n \n \n VALIDATED DATA', (validated_data), '\n \n \n \n \n \n ')
         name = validated_data.get('name')
         description = validated_data.get('description')
 
